@@ -16,7 +16,7 @@ export class MarketTrendingComponent implements OnInit {
     }
 
     async listStocks() {
-        const result = await this.api.GetMarketTrending('CA');
+        const result = await this.api.ListMarketTrending('CA');
         this.quotes = result.quotes;
     }
 }

@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-query GetMarketTrending($region: String) {
-  getMarketTrending(region: $region) {
+query ListMarketTrending($region: String) {
+  listMarketTrending(region: $region) {
     count
     quotes {
       symbol
@@ -10,6 +10,52 @@ query GetMarketTrending($region: String) {
       regularMarketChange
       regularMarketChangePercent
       market
+    }
+  }
+}
+query GetStockSummary($query: QueryGetStockSummaryQueryInput!) {
+  getStockSummary(query: $query) {
+    price {
+      symbol
+      shortName
+      longName
+      currency
+      regularMarketOpen {
+        raw
+        fmt
+      }
+      regularMarketDayHigh {
+        raw
+        fmt
+      }
+      regularMarketDayLow {
+        raw
+        fmt
+      }
+      regularMarketPrice {
+        raw
+        fmt
+      }
+      regularMarketChange {
+        raw
+        fmt
+      }
+      regularMarketChangePercent {
+        raw
+        fmt
+      }
+      regularMarketVolume {
+        raw
+        fmt
+      }
+      regularMarketPreviousClose {
+        raw
+        fmt
+      }
+      averageDailyVolume10Day {
+        raw
+        fmt
+      }
     }
   }
 }

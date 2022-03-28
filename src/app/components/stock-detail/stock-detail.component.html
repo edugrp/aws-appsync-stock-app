@@ -1,4 +1,7 @@
 <div *ngIf="stock">
-    <p>Company: {{ stock.name }}</p>
+    <p>Company: {{ stock.shortName }}</p>
     <p>Symbol: {{ stock.symbol }}</p>
+    <p>Price: {{ stock.currency }} {{ stock.regularMarketPrice.fmt }}</p>
+    <p>Change: {{ stock.regularMarketChangePercent.fmt }}</p>
+    <p>Volume: {{ stock.regularMarketVolume.fmt }}</p>
 </div>

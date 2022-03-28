@@ -165,6 +165,39 @@ export type Quote = {
   market?: string | null;
 };
 
+export type QueryGetStockSummaryQueryInput = {
+  region: string;
+  symbol: string;
+};
+
+export type StockSummary = {
+  __typename: "StockSummary";
+  price?: StockPrice | null;
+};
+
+export type StockPrice = {
+  __typename: "StockPrice";
+  symbol?: string | null;
+  shortName?: string | null;
+  longName?: string | null;
+  currency?: string | null;
+  regularMarketOpen?: ValueDetail | null;
+  regularMarketDayHigh?: ValueDetail | null;
+  regularMarketDayLow?: ValueDetail | null;
+  regularMarketPrice?: ValueDetail | null;
+  regularMarketChange?: ValueDetail | null;
+  regularMarketChangePercent?: ValueDetail | null;
+  regularMarketVolume?: ValueDetail | null;
+  regularMarketPreviousClose?: ValueDetail | null;
+  averageDailyVolume10Day?: ValueDetail | null;
+};
+
+export type ValueDetail = {
+  __typename: "ValueDetail";
+  raw?: number | null;
+  fmt?: string | null;
+};
+
 export type ModelStockFilterInput = {
   id?: ModelIDInput | null;
   symbol?: ModelStringInput | null;
@@ -289,7 +322,7 @@ export type DeletePortifolioMutation = {
   updatedAt: string;
 };
 
-export type GetMarketTrendingQuery = {
+export type ListMarketTrendingQuery = {
   __typename: "MarketTrending";
   count?: number | null;
   quotes?: Array<{
@@ -302,6 +335,62 @@ export type GetMarketTrendingQuery = {
     regularMarketChangePercent?: number | null;
     market?: string | null;
   } | null> | null;
+};
+
+export type GetStockSummaryQuery = {
+  __typename: "StockSummary";
+  price?: {
+    __typename: "StockPrice";
+    symbol?: string | null;
+    shortName?: string | null;
+    longName?: string | null;
+    currency?: string | null;
+    regularMarketOpen?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    regularMarketDayHigh?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    regularMarketDayLow?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    regularMarketPrice?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    regularMarketChange?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    regularMarketChangePercent?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    regularMarketVolume?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    regularMarketPreviousClose?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+    averageDailyVolume10Day?: {
+      __typename: "ValueDetail";
+      raw?: number | null;
+      fmt?: string | null;
+    } | null;
+  } | null;
 };
 
 export type GetStockQuery = {
@@ -620,9 +709,9 @@ export class APIService {
     )) as any;
     return <DeletePortifolioMutation>response.data.deletePortifolio;
   }
-  async GetMarketTrending(region?: string): Promise<GetMarketTrendingQuery> {
-    const statement = `query GetMarketTrending($region: String) {
-        getMarketTrending(region: $region) {
+  async ListMarketTrending(region?: string): Promise<ListMarketTrendingQuery> {
+    const statement = `query ListMarketTrending($region: String) {
+        listMarketTrending(region: $region) {
           __typename
           count
           quotes {
@@ -644,7 +733,75 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <GetMarketTrendingQuery>response.data.getMarketTrending;
+    return <ListMarketTrendingQuery>response.data.listMarketTrending;
+  }
+  async GetStockSummary(
+    query: QueryGetStockSummaryQueryInput
+  ): Promise<GetStockSummaryQuery> {
+    const statement = `query GetStockSummary($query: QueryGetStockSummaryQueryInput!) {
+        getStockSummary(query: $query) {
+          __typename
+          price {
+            __typename
+            symbol
+            shortName
+            longName
+            currency
+            regularMarketOpen {
+              __typename
+              raw
+              fmt
+            }
+            regularMarketDayHigh {
+              __typename
+              raw
+              fmt
+            }
+            regularMarketDayLow {
+              __typename
+              raw
+              fmt
+            }
+            regularMarketPrice {
+              __typename
+              raw
+              fmt
+            }
+            regularMarketChange {
+              __typename
+              raw
+              fmt
+            }
+            regularMarketChangePercent {
+              __typename
+              raw
+              fmt
+            }
+            regularMarketVolume {
+              __typename
+              raw
+              fmt
+            }
+            regularMarketPreviousClose {
+              __typename
+              raw
+              fmt
+            }
+            averageDailyVolume10Day {
+              __typename
+              raw
+              fmt
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      query
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetStockSummaryQuery>response.data.getStockSummary;
   }
   async GetStock(id: string): Promise<GetStockQuery> {
     const statement = `query GetStock($id: ID!) {
