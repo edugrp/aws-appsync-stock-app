@@ -1,0 +1,79 @@
+# this is an auto generated file. This will be overwritten
+query GetMarketTrending($region: String) {
+  getMarketTrending(region: $region) {
+    count
+    quotes {
+      symbol
+      shortName
+      longName
+      regularMarketPrice
+      regularMarketChange
+      regularMarketChangePercent
+      market
+    }
+  }
+}
+query GetStock($id: ID!) {
+  getStock(id: $id) {
+    id
+    symbol
+    name
+    createdAt
+    updatedAt
+  }
+}
+query ListStocks(
+  $filter: ModelStockFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listStocks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetPortifolio($id: ID!) {
+  getPortifolio(id: $id) {
+    id
+    stock {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    qtd
+    buyPrice
+    createdAt
+    updatedAt
+  }
+}
+query ListPortifolios(
+  $filter: ModelPortifolioFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPortifolios(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      stock {
+        id
+        symbol
+        name
+        createdAt
+        updatedAt
+      }
+      qtd
+      buyPrice
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

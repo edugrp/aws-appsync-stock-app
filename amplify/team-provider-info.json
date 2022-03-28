@@ -10,6 +10,14 @@
       "StackName": "amplify-stockapp-dev-165438",
       "StackId": "arn:aws:cloudformation:us-east-1:098847423970:stack/amplify-stockapp-dev-165438/a8936e20-abb4-11ec-afeb-0a7c04c9982d",
       "AmplifyAppId": "d1w9sd9yrhywoo"
+    },
+    "categories": {
+      "function": {
+        "marketTrendingFunction": {
+          "deploymentBucketName": "amplify-stockapp-dev-165438-deployment",
+          "s3Key": "amplify-builds/marketTrendingFunction-4979763545444d716d74-build.zip"
+        }
+      }
     }
   }
 }

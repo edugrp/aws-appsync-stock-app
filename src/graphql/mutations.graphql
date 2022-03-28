@@ -1,0 +1,94 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateStock(
+  $input: CreateStockInput!
+  $condition: ModelStockConditionInput
+) {
+  createStock(input: $input, condition: $condition) {
+    id
+    symbol
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateStock(
+  $input: UpdateStockInput!
+  $condition: ModelStockConditionInput
+) {
+  updateStock(input: $input, condition: $condition) {
+    id
+    symbol
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteStock(
+  $input: DeleteStockInput!
+  $condition: ModelStockConditionInput
+) {
+  deleteStock(input: $input, condition: $condition) {
+    id
+    symbol
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation CreatePortifolio(
+  $input: CreatePortifolioInput!
+  $condition: ModelPortifolioConditionInput
+) {
+  createPortifolio(input: $input, condition: $condition) {
+    id
+    stock {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    qtd
+    buyPrice
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdatePortifolio(
+  $input: UpdatePortifolioInput!
+  $condition: ModelPortifolioConditionInput
+) {
+  updatePortifolio(input: $input, condition: $condition) {
+    id
+    stock {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    qtd
+    buyPrice
+    createdAt
+    updatedAt
+  }
+}
+mutation DeletePortifolio(
+  $input: DeletePortifolioInput!
+  $condition: ModelPortifolioConditionInput
+) {
+  deletePortifolio(input: $input, condition: $condition) {
+    id
+    stock {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    qtd
+    buyPrice
+    createdAt
+    updatedAt
+  }
+}

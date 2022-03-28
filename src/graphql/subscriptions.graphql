@@ -1,0 +1,76 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateStock {
+  onCreateStock {
+    id
+    symbol
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateStock {
+  onUpdateStock {
+    id
+    symbol
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteStock {
+  onDeleteStock {
+    id
+    symbol
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreatePortifolio {
+  onCreatePortifolio {
+    id
+    stock {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    qtd
+    buyPrice
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdatePortifolio {
+  onUpdatePortifolio {
+    id
+    stock {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    qtd
+    buyPrice
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeletePortifolio {
+  onDeletePortifolio {
+    id
+    stock {
+      id
+      symbol
+      name
+      createdAt
+      updatedAt
+    }
+    qtd
+    buyPrice
+    createdAt
+    updatedAt
+  }
+}

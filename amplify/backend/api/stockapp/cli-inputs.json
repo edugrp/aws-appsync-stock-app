@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "stockapp",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/eduardo/trainings/aws-appsync/stock-proj/stock-app/amplify/backend/api/stockapp/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
