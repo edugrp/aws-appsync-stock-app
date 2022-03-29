@@ -1,6 +1,6 @@
 <div *ngFor="let stock of quotes">
     <p>
-        {{ stock.symbol }} :: {{ stock.longName }} :: {{ stock.regularMarketPrice }} ::
-        {{ stock.regularMarketChangePercent }}
+        {{ stock.symbol }} :: {{ stock.longName }} :: {{ stock.regularMarketPrice | currency }} ::
+        {{ stock.regularMarketChangePercent | number: '1.2-2' }}%
     </p>
 </div>

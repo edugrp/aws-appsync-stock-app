@@ -1,0 +1,7 @@
+<div>
+    <input type="text" #search />
+    <button (click)="searchStock(search)">Search</button>
+</div>
+<div *ngFor="let stock of stockList">
+    <p>{{ stock.symbol }} :: {{ stock.longname ?? stock.shortname }} <button (click)="addStock(stock)">+</button></p>
+</div>

@@ -16,12 +16,11 @@ type Portifolio @model {
     buyPrice: Float!
 }
 
-type MarketTrending {
-    count: Int
-    quotes: [Quote]
+type MarketTrendingResult {
+    quotes: [StockMarketTrending]
 }
 
-type Quote {
+type StockMarketTrending {
     symbol: String
     shortName: String
     longName: String
@@ -31,7 +30,7 @@ type Quote {
     market: String
 }
 
-type StockSummary {
+type StockSummaryResult {
     price: StockPrice
 }
 type StockPrice {
@@ -49,17 +48,39 @@ type StockPrice {
     regularMarketPreviousClose: ValueDetail
     averageDailyVolume10Day: ValueDetail
 }
+
 type ValueDetail {
     raw: Float
     fmt: String
 }
 
-type Query {
-    listMarketTrending(region: String): MarketTrending @function(name: "marketTrendingFunction-${env}")
+type SearchStockResult {
+    quotes: [SearchStock]
+}
 
-    getStockSummary(region: String!, symbol: String!): StockSummary
+type SearchStock {
+    symbol: String
+    shortname: String
+    longname: String
+    exchDisp: String
+    typeDisp: String
+}
+
+type Query {
+    listMarketTrending(region: String): MarketTrendingResult @function(name: "marketTrendingFunction-${env}")
+
+    getStockSummary(region: String!, symbol: String!): StockSummaryResult
         @http(
             url: "https://yh-finance.p.rapidapi.com/stock/v2/get-summary"
+            headers: [
+                { key: "X-Rapidapi-Host", value: "yh-finance.p.rapidapi.com" }
+                { key: "X-Rapidapi-Key", value: "902e6870f5mshd04861c21fc32b9p1337aajsn1a9985b4179e" }
+            ]
+        )
+
+    searchStocks(region: String!, q: String!): SearchStockResult
+        @http(
+            url: "https://yh-finance.p.rapidapi.com/auto-complete"
             headers: [
                 { key: "X-Rapidapi-Host", value: "yh-finance.p.rapidapi.com" }
                 { key: "X-Rapidapi-Key", value: "902e6870f5mshd04861c21fc32b9p1337aajsn1a9985b4179e" }

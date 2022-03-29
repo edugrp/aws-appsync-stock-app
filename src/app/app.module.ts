@@ -10,8 +10,9 @@ import { StockListComponent } from './components/stock-list/stock-list.component
 import { StockDetailComponent } from './components/stock-detail/stock-detail.component';
 import { MarketTrendingComponent } from './components/market-trending/market-trending.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SearchStockComponent } from './components/search-stock/search-stock.component';
 @NgModule({
-    declarations: [AppComponent, AuthComponent, StockListComponent, StockDetailComponent, MarketTrendingComponent, DashboardComponent],
+    declarations: [AppComponent, AuthComponent, StockListComponent, StockDetailComponent, MarketTrendingComponent, DashboardComponent, SearchStockComponent],
     imports: [BrowserModule, AppRoutingModule, AmplifyAuthenticatorModule],
     providers: [],
     bootstrap: [AppComponent],

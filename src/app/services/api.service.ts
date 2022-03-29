@@ -148,14 +148,13 @@ export type DeletePortifolioInput = {
   id: string;
 };
 
-export type MarketTrending = {
-  __typename: "MarketTrending";
-  count?: number | null;
-  quotes?: Array<Quote | null> | null;
+export type MarketTrendingResult = {
+  __typename: "MarketTrendingResult";
+  quotes?: Array<StockMarketTrending | null> | null;
 };
 
-export type Quote = {
-  __typename: "Quote";
+export type StockMarketTrending = {
+  __typename: "StockMarketTrending";
   symbol?: string | null;
   shortName?: string | null;
   longName?: string | null;
@@ -170,8 +169,8 @@ export type QueryGetStockSummaryQueryInput = {
   symbol: string;
 };
 
-export type StockSummary = {
-  __typename: "StockSummary";
+export type StockSummaryResult = {
+  __typename: "StockSummaryResult";
   price?: StockPrice | null;
 };
 
@@ -196,6 +195,25 @@ export type ValueDetail = {
   __typename: "ValueDetail";
   raw?: number | null;
   fmt?: string | null;
+};
+
+export type QuerySearchStocksQueryInput = {
+  region: string;
+  q: string;
+};
+
+export type SearchStockResult = {
+  __typename: "SearchStockResult";
+  quotes?: Array<SearchStock | null> | null;
+};
+
+export type SearchStock = {
+  __typename: "SearchStock";
+  symbol?: string | null;
+  shortname?: string | null;
+  longname?: string | null;
+  exchDisp?: string | null;
+  typeDisp?: string | null;
 };
 
 export type ModelStockFilterInput = {
@@ -323,10 +341,9 @@ export type DeletePortifolioMutation = {
 };
 
 export type ListMarketTrendingQuery = {
-  __typename: "MarketTrending";
-  count?: number | null;
+  __typename: "MarketTrendingResult";
   quotes?: Array<{
-    __typename: "Quote";
+    __typename: "StockMarketTrending";
     symbol?: string | null;
     shortName?: string | null;
     longName?: string | null;
@@ -338,7 +355,7 @@ export type ListMarketTrendingQuery = {
 };
 
 export type GetStockSummaryQuery = {
-  __typename: "StockSummary";
+  __typename: "StockSummaryResult";
   price?: {
     __typename: "StockPrice";
     symbol?: string | null;
@@ -391,6 +408,18 @@ export type GetStockSummaryQuery = {
       fmt?: string | null;
     } | null;
   } | null;
+};
+
+export type SearchStocksQuery = {
+  __typename: "SearchStockResult";
+  quotes?: Array<{
+    __typename: "SearchStock";
+    symbol?: string | null;
+    shortname?: string | null;
+    longname?: string | null;
+    exchDisp?: string | null;
+    typeDisp?: string | null;
+  } | null> | null;
 };
 
 export type GetStockQuery = {
@@ -713,7 +742,6 @@ export class APIService {
     const statement = `query ListMarketTrending($region: String) {
         listMarketTrending(region: $region) {
           __typename
-          count
           quotes {
             __typename
             symbol
@@ -802,6 +830,30 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <GetStockSummaryQuery>response.data.getStockSummary;
+  }
+  async SearchStocks(
+    query: QuerySearchStocksQueryInput
+  ): Promise<SearchStocksQuery> {
+    const statement = `query SearchStocks($query: QuerySearchStocksQueryInput!) {
+        searchStocks(query: $query) {
+          __typename
+          quotes {
+            __typename
+            symbol
+            shortname
+            longname
+            exchDisp
+            typeDisp
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      query
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SearchStocksQuery>response.data.searchStocks;
   }
   async GetStock(id: string): Promise<GetStockQuery> {
     const statement = `query GetStock($id: ID!) {
