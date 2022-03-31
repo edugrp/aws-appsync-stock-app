@@ -1,6 +1,42 @@
-<div *ngFor="let stock of quotes">
-    <p>
-        {{ stock.symbol }} :: {{ stock.longName }} :: {{ stock.regularMarketPrice | currency }} ::
-        {{ stock.regularMarketChangePercent | number: '1.2-2' }}%
-    </p>
-</div>
+<mat-card fxFlex>
+    <mat-card-title>Market Trending</mat-card-title>
+    <mat-card-content>
+        <div fxFlex *ngIf="quotes.length > 0">
+            <mat-table [dataSource]="quotes" class="mat-elevation-z2 trending-table">
+                <ng-container matColumnDef="symbol">
+                    <mat-header-cell *matHeaderCellDef>Symbol</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.symbol }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="company-name">
+                    <mat-header-cell *matHeaderCellDef>Company Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.longName ?? element.shortName }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.regularMarketPrice | currency }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="change">
+                    <mat-header-cell *matHeaderCellDef>Change</mat-header-cell>
+                    <mat-cell *matCellDef="let element"
+                        >{{ element.regularMarketChangePercent | number: '1.2-2' }} %
+                        <app-trending-icon [changePercent]="element.regularMarketChangePercent"></app-trending-icon>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="addStock(element)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </div>
+    </mat-card-content>
+    <mat-card-footer *ngIf="!quotes || quotes.length === 0">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

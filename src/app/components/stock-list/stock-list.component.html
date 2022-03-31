@@ -1,4 +1,62 @@
-<div *ngFor="let stock of stockList">
-    <hr />
-    <p>Company: {{ stock.name }} :: {{ stock.symbol }}</p>
-</div>
+<mat-card fxFlex>
+    <mat-card-title>Portifolio</mat-card-title>
+
+    <mat-card-content>
+        <div fxFlex *ngIf="stockList.length > 0">
+            <mat-table [dataSource]="stockList" class="mat-elevation-z2 trending-table">
+                <ng-container matColumnDef="symbol">
+                    <mat-header-cell *matHeaderCellDef>Symbol</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.symbol }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="company-name">
+                    <mat-header-cell *matHeaderCellDef>Company Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="qtd">
+                    <mat-header-cell *matHeaderCellDef>Qtd</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.qtd | number: '1.0-0' }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="buyPrice">
+                    <mat-header-cell *matHeaderCellDef>Buy Price</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.buyPrice | currency }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.regularMarketPrice | currency }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="change">
+                    <mat-header-cell *matHeaderCellDef>Change</mat-header-cell>
+                    <mat-cell *matCellDef="let element"
+                        >{{ element.regularMarketChangePercent | number: '1.2-2' }} %
+                        <app-trending-icon [changePercent]="element.regularMarketChangePercent"></app-trending-icon>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="profit">
+                    <mat-header-cell *matHeaderCellDef>Profit</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.profit | currency }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="profitPercent">
+                    <mat-header-cell *matHeaderCellDef>Change</mat-header-cell>
+                    <mat-cell *matCellDef="let element"
+                        >{{ element.profitPercent | number: '1.2-2' }} %
+                        <app-trending-icon [changePercent]="element.profitPercent"></app-trending-icon>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="sellStock(element)">
+                            <mat-icon color="warn">sell</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </div>
+    </mat-card-content>
+    <mat-card-footer *ngIf="!stockList || stockList.length === 0">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

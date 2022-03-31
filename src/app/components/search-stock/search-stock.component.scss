@@ -1,0 +1,30 @@
+.table-container {
+    max-height: 200px;
+    overflow: auto;
+}
+
+.search-table {
+    width: 100%;
+}
+
+.mat-column-symbol {
+    max-width: 80px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.mat-column-company-name {
+    padding-left: 16px;
+    font-size: 16px;
+}
+
+.mat-column-exchange {
+    max-width: 100px;
+    justify-content: center;
+}
+.mat-column-action {
+    max-width: 60px;
+    justify-content: flex-end;
+}

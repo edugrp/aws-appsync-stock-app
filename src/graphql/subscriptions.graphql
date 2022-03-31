@@ -29,6 +29,9 @@ subscription OnDeleteStock {
 subscription OnCreatePortifolio {
   onCreatePortifolio {
     id
+    qtd
+    buyPrice
+    stockID
     stock {
       id
       symbol
@@ -36,8 +39,6 @@ subscription OnCreatePortifolio {
       createdAt
       updatedAt
     }
-    qtd
-    buyPrice
     createdAt
     updatedAt
   }
@@ -45,6 +46,9 @@ subscription OnCreatePortifolio {
 subscription OnUpdatePortifolio {
   onUpdatePortifolio {
     id
+    qtd
+    buyPrice
+    stockID
     stock {
       id
       symbol
@@ -52,8 +56,6 @@ subscription OnUpdatePortifolio {
       createdAt
       updatedAt
     }
-    qtd
-    buyPrice
     createdAt
     updatedAt
   }
@@ -61,6 +63,9 @@ subscription OnUpdatePortifolio {
 subscription OnDeletePortifolio {
   onDeletePortifolio {
     id
+    qtd
+    buyPrice
+    stockID
     stock {
       id
       symbol
@@ -68,8 +73,6 @@ subscription OnDeletePortifolio {
       createdAt
       updatedAt
     }
-    qtd
-    buyPrice
     createdAt
     updatedAt
   }

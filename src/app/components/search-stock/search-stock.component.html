@@ -1,7 +1,46 @@
-<div>
-    <input type="text" #search />
-    <button (click)="searchStock(search)">Search</button>
-</div>
-<div *ngFor="let stock of stockList">
-    <p>{{ stock.symbol }} :: {{ stock.longname ?? stock.shortname }} <button (click)="addStock(stock)">+</button></p>
-</div>
+<mat-card fxFlex>
+    <mat-card-title>Search</mat-card-title>
+    <mat-card-subtitle>
+        <div fxFlex>
+            <form>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Company or stock symbol</mat-label>
+                    <input matInput type="text" #search />
+                    <button type="submit" mat-icon-button matSuffix (click)="searchStock(search)">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </mat-form-field>
+            </form>
+        </div>
+    </mat-card-subtitle>
+
+    <mat-card-content>
+        <div fxFlex class="table-container" *ngIf="stockList.length > 0">
+            <mat-table [dataSource]="stockList" class="mat-elevation-z2 search-table">
+                <ng-container matColumnDef="symbol">
+                    <mat-header-cell *matHeaderCellDef>Symbol</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.symbol }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="company-name">
+                    <mat-header-cell *matHeaderCellDef>Company Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.longname ?? element.shortname }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="exchange">
+                    <mat-header-cell *matHeaderCellDef>Exchange</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.exchDisp }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="addStock(element)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </div>
+    </mat-card-content>
+</mat-card>

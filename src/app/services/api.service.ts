@@ -94,11 +94,13 @@ export type CreatePortifolioInput = {
   id?: string | null;
   qtd: number;
   buyPrice: number;
+  stockID?: string | null;
 };
 
 export type ModelPortifolioConditionInput = {
   qtd?: ModelIntInput | null;
   buyPrice?: ModelFloatInput | null;
+  stockID?: ModelIDInput | null;
   and?: Array<ModelPortifolioConditionInput | null> | null;
   or?: Array<ModelPortifolioConditionInput | null> | null;
   not?: ModelPortifolioConditionInput | null;
@@ -128,12 +130,29 @@ export type ModelFloatInput = {
   attributeType?: ModelAttributeTypes | null;
 };
 
+export type ModelIDInput = {
+  ne?: string | null;
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  contains?: string | null;
+  notContains?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+  size?: ModelSizeInput | null;
+};
+
 export type Portifolio = {
   __typename: "Portifolio";
   id: string;
-  stock: Stock;
   qtd: number;
   buyPrice: number;
+  stockID?: string | null;
+  stock: Stock;
   createdAt: string;
   updatedAt: string;
 };
@@ -142,6 +161,7 @@ export type UpdatePortifolioInput = {
   id: string;
   qtd?: number | null;
   buyPrice?: number | null;
+  stockID?: string | null;
 };
 
 export type DeletePortifolioInput = {
@@ -162,6 +182,7 @@ export type StockMarketTrending = {
   regularMarketChange?: number | null;
   regularMarketChangePercent?: number | null;
   market?: string | null;
+  quoteType?: string | null;
 };
 
 export type QueryGetStockSummaryQueryInput = {
@@ -225,22 +246,6 @@ export type ModelStockFilterInput = {
   not?: ModelStockFilterInput | null;
 };
 
-export type ModelIDInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
-};
-
 export type ModelStockConnection = {
   __typename: "ModelStockConnection";
   items: Array<Stock | null>;
@@ -251,6 +256,7 @@ export type ModelPortifolioFilterInput = {
   id?: ModelIDInput | null;
   qtd?: ModelIntInput | null;
   buyPrice?: ModelFloatInput | null;
+  stockID?: ModelIDInput | null;
   and?: Array<ModelPortifolioFilterInput | null> | null;
   or?: Array<ModelPortifolioFilterInput | null> | null;
   not?: ModelPortifolioFilterInput | null;
@@ -292,6 +298,9 @@ export type DeleteStockMutation = {
 export type CreatePortifolioMutation = {
   __typename: "Portifolio";
   id: string;
+  qtd: number;
+  buyPrice: number;
+  stockID?: string | null;
   stock: {
     __typename: "Stock";
     id: string;
@@ -300,8 +309,6 @@ export type CreatePortifolioMutation = {
     createdAt: string;
     updatedAt: string;
   };
-  qtd: number;
-  buyPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -309,6 +316,9 @@ export type CreatePortifolioMutation = {
 export type UpdatePortifolioMutation = {
   __typename: "Portifolio";
   id: string;
+  qtd: number;
+  buyPrice: number;
+  stockID?: string | null;
   stock: {
     __typename: "Stock";
     id: string;
@@ -317,8 +327,6 @@ export type UpdatePortifolioMutation = {
     createdAt: string;
     updatedAt: string;
   };
-  qtd: number;
-  buyPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -326,6 +334,9 @@ export type UpdatePortifolioMutation = {
 export type DeletePortifolioMutation = {
   __typename: "Portifolio";
   id: string;
+  qtd: number;
+  buyPrice: number;
+  stockID?: string | null;
   stock: {
     __typename: "Stock";
     id: string;
@@ -334,8 +345,6 @@ export type DeletePortifolioMutation = {
     createdAt: string;
     updatedAt: string;
   };
-  qtd: number;
-  buyPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -351,6 +360,7 @@ export type ListMarketTrendingQuery = {
     regularMarketChange?: number | null;
     regularMarketChangePercent?: number | null;
     market?: string | null;
+    quoteType?: string | null;
   } | null> | null;
 };
 
@@ -447,6 +457,9 @@ export type ListStocksQuery = {
 export type GetPortifolioQuery = {
   __typename: "Portifolio";
   id: string;
+  qtd: number;
+  buyPrice: number;
+  stockID?: string | null;
   stock: {
     __typename: "Stock";
     id: string;
@@ -455,8 +468,6 @@ export type GetPortifolioQuery = {
     createdAt: string;
     updatedAt: string;
   };
-  qtd: number;
-  buyPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -466,6 +477,9 @@ export type ListPortifoliosQuery = {
   items: Array<{
     __typename: "Portifolio";
     id: string;
+    qtd: number;
+    buyPrice: number;
+    stockID?: string | null;
     stock: {
       __typename: "Stock";
       id: string;
@@ -474,8 +488,6 @@ export type ListPortifoliosQuery = {
       createdAt: string;
       updatedAt: string;
     };
-    qtd: number;
-    buyPrice: number;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -512,6 +524,9 @@ export type OnDeleteStockSubscription = {
 export type OnCreatePortifolioSubscription = {
   __typename: "Portifolio";
   id: string;
+  qtd: number;
+  buyPrice: number;
+  stockID?: string | null;
   stock: {
     __typename: "Stock";
     id: string;
@@ -520,8 +535,6 @@ export type OnCreatePortifolioSubscription = {
     createdAt: string;
     updatedAt: string;
   };
-  qtd: number;
-  buyPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -529,6 +542,9 @@ export type OnCreatePortifolioSubscription = {
 export type OnUpdatePortifolioSubscription = {
   __typename: "Portifolio";
   id: string;
+  qtd: number;
+  buyPrice: number;
+  stockID?: string | null;
   stock: {
     __typename: "Stock";
     id: string;
@@ -537,8 +553,6 @@ export type OnUpdatePortifolioSubscription = {
     createdAt: string;
     updatedAt: string;
   };
-  qtd: number;
-  buyPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -546,6 +560,9 @@ export type OnUpdatePortifolioSubscription = {
 export type OnDeletePortifolioSubscription = {
   __typename: "Portifolio";
   id: string;
+  qtd: number;
+  buyPrice: number;
+  stockID?: string | null;
   stock: {
     __typename: "Stock";
     id: string;
@@ -554,8 +571,6 @@ export type OnDeletePortifolioSubscription = {
     createdAt: string;
     updatedAt: string;
   };
-  qtd: number;
-  buyPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -647,6 +662,9 @@ export class APIService {
         createPortifolio(input: $input, condition: $condition) {
           __typename
           id
+          qtd
+          buyPrice
+          stockID
           stock {
             __typename
             id
@@ -655,8 +673,6 @@ export class APIService {
             createdAt
             updatedAt
           }
-          qtd
-          buyPrice
           createdAt
           updatedAt
         }
@@ -680,6 +696,9 @@ export class APIService {
         updatePortifolio(input: $input, condition: $condition) {
           __typename
           id
+          qtd
+          buyPrice
+          stockID
           stock {
             __typename
             id
@@ -688,8 +707,6 @@ export class APIService {
             createdAt
             updatedAt
           }
-          qtd
-          buyPrice
           createdAt
           updatedAt
         }
@@ -713,6 +730,9 @@ export class APIService {
         deletePortifolio(input: $input, condition: $condition) {
           __typename
           id
+          qtd
+          buyPrice
+          stockID
           stock {
             __typename
             id
@@ -721,8 +741,6 @@ export class APIService {
             createdAt
             updatedAt
           }
-          qtd
-          buyPrice
           createdAt
           updatedAt
         }
@@ -751,6 +769,7 @@ export class APIService {
             regularMarketChange
             regularMarketChangePercent
             market
+            quoteType
           }
         }
       }`;
@@ -913,6 +932,9 @@ export class APIService {
         getPortifolio(id: $id) {
           __typename
           id
+          qtd
+          buyPrice
+          stockID
           stock {
             __typename
             id
@@ -921,8 +943,6 @@ export class APIService {
             createdAt
             updatedAt
           }
-          qtd
-          buyPrice
           createdAt
           updatedAt
         }
@@ -946,6 +966,9 @@ export class APIService {
           items {
             __typename
             id
+            qtd
+            buyPrice
+            stockID
             stock {
               __typename
               id
@@ -954,8 +977,6 @@ export class APIService {
               createdAt
               updatedAt
             }
-            qtd
-            buyPrice
             createdAt
             updatedAt
           }
@@ -1042,6 +1063,9 @@ export class APIService {
         onCreatePortifolio {
           __typename
           id
+          qtd
+          buyPrice
+          stockID
           stock {
             __typename
             id
@@ -1050,8 +1074,6 @@ export class APIService {
             createdAt
             updatedAt
           }
-          qtd
-          buyPrice
           createdAt
           updatedAt
         }
@@ -1069,6 +1091,9 @@ export class APIService {
         onUpdatePortifolio {
           __typename
           id
+          qtd
+          buyPrice
+          stockID
           stock {
             __typename
             id
@@ -1077,8 +1102,6 @@ export class APIService {
             createdAt
             updatedAt
           }
-          qtd
-          buyPrice
           createdAt
           updatedAt
         }
@@ -1096,6 +1119,9 @@ export class APIService {
         onDeletePortifolio {
           __typename
           id
+          qtd
+          buyPrice
+          stockID
           stock {
             __typename
             id
@@ -1104,8 +1130,6 @@ export class APIService {
             createdAt
             updatedAt
           }
-          qtd
-          buyPrice
           createdAt
           updatedAt
         }

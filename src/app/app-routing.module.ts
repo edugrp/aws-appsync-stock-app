@@ -1,3 +1,4 @@
+import { SearchStockComponent } from './components/search-stock/search-stock.component';
 import { StockDetailComponent } from './components/stock-detail/stock-detail.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,6 +19,10 @@ const routes: Routes = [
     {
         path: 'stock-detail',
         component: StockDetailComponent,
+    },
+    {
+        path: 'search',
+        component: SearchStockComponent,
     },
     {
         path: '',

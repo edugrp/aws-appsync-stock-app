@@ -41,6 +41,9 @@ mutation CreatePortifolio(
 ) {
   createPortifolio(input: $input, condition: $condition) {
     id
+    qtd
+    buyPrice
+    stockID
     stock {
       id
       symbol
@@ -48,8 +51,6 @@ mutation CreatePortifolio(
       createdAt
       updatedAt
     }
-    qtd
-    buyPrice
     createdAt
     updatedAt
   }
@@ -60,6 +61,9 @@ mutation UpdatePortifolio(
 ) {
   updatePortifolio(input: $input, condition: $condition) {
     id
+    qtd
+    buyPrice
+    stockID
     stock {
       id
       symbol
@@ -67,8 +71,6 @@ mutation UpdatePortifolio(
       createdAt
       updatedAt
     }
-    qtd
-    buyPrice
     createdAt
     updatedAt
   }
@@ -79,6 +81,9 @@ mutation DeletePortifolio(
 ) {
   deletePortifolio(input: $input, condition: $condition) {
     id
+    qtd
+    buyPrice
+    stockID
     stock {
       id
       symbol
@@ -86,8 +91,6 @@ mutation DeletePortifolio(
       createdAt
       updatedAt
     }
-    qtd
-    buyPrice
     createdAt
     updatedAt
   }

@@ -11,9 +11,10 @@ type Stock @model {
 
 type Portifolio @model {
     id: ID!
-    stock: Stock!
     qtd: Int!
     buyPrice: Float!
+    stockID: ID
+    stock: Stock! @hasOne(fields: ["stockID"])
 }
 
 type MarketTrendingResult {
@@ -28,6 +29,7 @@ type StockMarketTrending {
     regularMarketChange: Float
     regularMarketChangePercent: Float
     market: String
+    quoteType: String
 }
 
 type StockSummaryResult {

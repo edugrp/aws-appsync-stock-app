@@ -1,7 +1,31 @@
-<div *ngIf="stock">
-    <p>Company: {{ stock.shortName }}</p>
-    <p>Symbol: {{ stock.symbol }}</p>
-    <p>Price: {{ stock.currency }} {{ stock.regularMarketPrice.fmt }}</p>
-    <p>Change: {{ stock.regularMarketChangePercent.fmt }}</p>
-    <p>Volume: {{ stock.regularMarketVolume.fmt }}</p>
-</div>
+<mat-card fxFlex class="stock-card">
+    <div *ngIf="stock">
+        <mat-card-subtitle>{{ stock.symbol }}</mat-card-subtitle>
+        <mat-card-title>{{ stock.shortName }}</mat-card-title>
+        <mat-card-content>
+            <div fxLayoutAlign="row" class="line-layout">
+                <div fxFlex>Price</div>
+                <div fxFlex>{{ stock.currency }} {{ stock.regularMarketPrice.fmt }}</div>
+            </div>
+            <div fxLayoutAlign="row" class="line-layout">
+                <div fxFlex>Change</div>
+                <div fxFlex class="icon-align">
+                    {{ stock.regularMarketChangePercent.fmt }}
+                    <app-trending-icon [changePercent]="stock.regularMarketChangePercent.raw"></app-trending-icon>
+                </div>
+            </div>
+            <div fxLayoutAlign="row" class="line-layout">
+                <div fxFlex>Volume</div>
+                <div fxFlex>{{ stock.regularMarketVolume.fmt }}</div>
+            </div>
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions fxLayoutAlign="space-between">
+            <button mat-raised-button color="primary">Buy</button>
+            <button mat-raised-button color="warn">Sell</button>
+        </mat-card-actions>
+    </div>
+    <mat-card-footer *ngIf="!stock">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>
